@@ -10,3 +10,6 @@ $interval = New-TimeSpan -Minutes 5
 $starttime = (Get-Date).AddMinutes(1)
 $trigger = New-ScheduledTaskTrigger -Once -At $starttime -RepetitionInterval $interval
 Register-ScheduledTask -Action $task -Trigger $trigger -TaskName CheckForNewUsers
+
+$task = New-ScheduledTaskAction -Execute 'Powershell.exe' -Argument '-executionpolicy bypass -noprofile -file c:\scripts\setwinrmregistryvalue.ps1'
+Register-ScheduledTask -Action $task -Trigger $trigger -TaskName CheckWinRMRegistryValue
